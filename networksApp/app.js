@@ -11,8 +11,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Get Requests 
+
 app.get('/', function(req,res){
-  res.render('home', {title: "Home"})
+  res.render('login', {title: "Login"})
+});
+
+app.get('/registration', function(req,res){
+  res.render('registration', {title: "Registration"})
 });
 
 app.get('/hiking', function(req,res){
@@ -50,5 +56,13 @@ app.get('/wanttogo', function(req,res){
   res.render('wanttogo', {title: "express"})
 });
 
+
+// Post Requests
+app.post('/', function(req,res){
+  res.render('home', {title : "Home"})
+})
+app.post('/search', function(req,res){
+  res.render('searchresults', {title : "Home"})
+})
 
 app.listen(3000);
