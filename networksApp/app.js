@@ -12,37 +12,37 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req,res){
-  res.render('home', {title: "express"})
+  res.render('home', {title: "Home"})
 });
 
 app.get('/hiking', function(req,res){
-  res.render('hiking', {title: "express"})
+  res.render('hiking', {title: "Hiking"})
 });
 app.get('/inca', function(req,res){
-  res.render('inca', {title: "express"})
+  res.render('inca', {title: "Inca"})
 });
 app.get('/annapurna', function(req,res){
-  res.render('annapurna', {title: "express"})
+  res.render('annapurna', {title: "Annapurna"})
 });
 
 app.get('/cities', function(req,res){
-  res.render('cities', {title: "express"})
+  res.render('cities', {title: "Cities"})
 });
 app.get('/paris', function(req,res){
-  res.render('paris', {title: "express"})
+  res.render('paris', {title: "Paris"})
 });
 app.get('/rome', function(req,res){
-  res.render('rome', {title: "express"})
+  res.render('rome', {title: "Rome"})
 });
 
 app.get('/islands', function(req,res){
-  res.render('islands', {title: "express"})
+  res.render('islands', {title: "Islands"})
 });
 app.get('/bali', function(req,res){
-  res.render('bali', {title: "express"})
+  res.render('bali', {title: "Bali"})
 });
 app.get('/santorini', function(req,res){
-  res.render('santorini', {title: "express"})
+  res.render('santorini', {title: "Santorini"})
 });
 
 
