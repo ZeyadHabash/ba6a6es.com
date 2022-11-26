@@ -73,34 +73,40 @@ app.post('/register', function(req,res){
   var usernameVar = req.body.username;
   var passwordVar = req.body.password;
   var exists = false;
-  MongoClient.connect("mongodb://0.0.0.0:27017",function(err,client){
-    if (err) throw err;
-    var db = client.db("appDB");
-
-    db.collection('Users').find().toArray(function(err,results){
-      for (let i = 0; i < results.length; i++){
+  console.log(usernamesDB);
+  for (let i = 0; i < usernamesDB.length; i++){
+        console.log(usernamesDB[i]);
         console.log("inloop" + i);
-        if(results[i]["username"] == usernameVar){
+        console.log(usernamesDB.length);
+        if(usernamesDB[i][username] == usernameVar){
           exists = true;
           break;
         }
       }
-      console.log(usernameVar);
-      if(!exists){
-        res.redirect('/');
-        console.log("doesnt exist");
-      }
-      else
-        console.log("exists!");
-      });
-  });
+  console.log(usernameVar);
+  if(!exists){
+    res.redirect('/');
+    console.log("doesnt exist");
+    db.collection('Users').insertOne({username: usernameVar, password: passwordVar});
+  }
+  else
+    console.log("exists!");
 })
 
 
 // Mongo stuff
+
+var usernamesDB = [];
+
 MongoClient.connect("mongodb://0.0.0.0:27017",function(err,client){
   if (err) throw err;
   var db = client.db("appDB");
+
+  console.log(db.collection('Users').find({username:'abab'}).count() > 0);
+  // db.collection('Users').find().toArray(function(err,results){
+  //     usernamesDB = results;
+  //   });
+
  // db.collection('Users').insertOne({username: 'abab', password: 'xyxy'});
 
   // db.collection('Users').find().toArray(function(err,results){
