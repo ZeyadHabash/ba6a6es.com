@@ -13,6 +13,42 @@
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+          .box1 {
+            position: fixed;
+            left: 50px;
+            top: 150px;
+            color: white;
+        }
+        .box2 {
+            position: fixed;
+            left: 300px;
+            top: 150px;
+            color: white;
+        }
+        .box3 {
+            position: fixed;
+            left: 550px;
+            top: 150px;
+            color: white;
+        }
+        .box4 {
+            position: fixed;
+            left: 800px;
+            top: 150px;
+            color: white;
+        }
+        .box5 {
+            position: fixed;
+            left: 1050px;
+            top: 150px;
+            color: white;
+        }
+        .box6 {
+            position: fixed;
+            left: 1300px;
+            top: 150px;
+            color: white;
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,5 +74,42 @@
             </form>
         </div>
     </nav>
+    <script>
+        var locations = '<%= locations %>';
+        var fullNames = '<%= fullNames %>';
+        if (locations.length > 0) {
+            locations = locations.split(',');
+            fullNames = fullNames.split(',');
+            for (var i = 0; i < locations.length; i++) {
+                var div = document.createElement("div");
+                div.className = 'box' + (i + 1);
+                var img = document.createElement("img");
+                img.src = "/" + locations[i] + ".png";
+                img.height = 300;
+                img.width = 193;
+                var label = document.createElement("label");
+                label.id = locations[i]
+                label.className = "ml-4 my-2";
+                label.innerHTML = fullNames[i];
+                var linebreak1 = document.createElement('br');
+                var linebreak2 = document.createElement('br');
+                var linebreak3 = document.createElement('br');
+                var linebreak4 = document.createElement('br');
+                var button = document.createElement('button');
+                button.setAttribute('onclick', "location.href = '/" + locations[i] + "';");
+                button.id = locations[i];
+                button.className = "btn btn-secondary ml-3";
+                button.innerHTML = 'View';
+                div.appendChild(img);
+                div.appendChild(linebreak1);
+                div.appendChild(linebreak3);
+                div.appendChild(label);
+                div.appendChild(linebreak4);
+                div.append(linebreak2);
+                div.append(button);
+                document.body.appendChild(div);
+            }
+        }
+    </script>
 </body>
 </html>
