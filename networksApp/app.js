@@ -110,6 +110,14 @@ app.get('/wanttogo', async function(req,res){
   }
 });
 
+// this is just to redirect to login page
+app.get('/search', function(req,res){
+  if(!req.session.username)
+    res.redirect('/')
+  else
+      res.render('searchresults', {locations:[], fullNames: []});
+});
+
 
 // Post Requests
 app.post('/', async function(req,res){
@@ -148,6 +156,8 @@ app.post('/search', function(req,res){
         fullNames.push(fullLocationNames[i]);
       }
     }
+    if(locations.length == 0)
+      alert("Destination Not Found");
     res.render('searchresults', {locations:locations, fullNames: fullNames});
   }
 })
