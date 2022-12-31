@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Get Requests 
 app.get('/', function(req,res){
   if(!req.session.username){
-    req.session.destroy();
+    req.session.destroy(); // not really needed
     //session = req.session;
     res.render('login', {title: "Login"})
   }else{
@@ -38,7 +38,7 @@ app.get('/', function(req,res){
 });
 
 app.get('/registration', function(req,res){
-  req.session.destroy();
+  req.session.destroy(); // if registering then probably wants to login to another account
   res.render('registration', {title: "Registration"})
 });
 
@@ -113,7 +113,7 @@ app.get('/wanttogo', async function(req,res){
 // this is just to redirect to login page
 app.get('/search', function(req,res){
   if(!req.session.username)
-    res.redirect('/')
+    res.redirect('/')  
   else
       res.render('searchresults', {locations:[], fullNames: []});
 });
@@ -168,7 +168,7 @@ app.post('/register', async function(req,res){
   if(usernameVar && passwordVar){
       var user;
       user = await collection.findOne({username: usernameVar})
-      console.log(user);
+      //console.log(user);  //debugging
       if(!user){
         collection.insertOne({username: usernameVar, password: passwordVar, wanttogo: []})
         alert('Account Successfully Created');
