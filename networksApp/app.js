@@ -8,12 +8,14 @@ const alert = require('alert');
 const PORT = process.env.PORT || 3030;
 //const popups = require('popups'); // not needed
 
+// commented for deployment
+/* 
 var MongoClient = require('mongodb').MongoClient;
 var MongoURL = 'mongodb://127.0.0.1:27017/';
 var client = new MongoClient(MongoURL);
 var database = client.db("myDB");
 var collection = database.collection("myCollection");
-
+*/
 var app = express();
 
 app.use(session({secret:'secretbatates',saveUninitialized:true, resave : true}));
@@ -105,9 +107,12 @@ app.get('/wanttogo', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
   else{
-    var userDoc = await collection.findOne({username: req.session.username});
+    // commented for deployment
+    /*var userDoc = await collection.findOne({username: req.session.username});
     var wanttogoList = userDoc.wanttogo;
     res.render('wanttogo', {locations: wanttogoList});
+    */
+   res.render('wanttogo', {locations: []});
   }
 });
 
@@ -125,18 +130,21 @@ app.post('/', async function(req,res){
   var usernameVar = req.body.username;
   var passwordVar = req.body.password;
   if(usernameVar && passwordVar){
-      var user;
-      user = await collection.findOne({username: usernameVar,password: passwordVar})
-      if(user){
-        //session = req.session;
-        req.session.username = usernameVar;
-        res.render('home', {title : "Home"});
-      }else{
-        alert('Invalid Username or Password. Please Login Again');
-        res.render('login');
-      }
+    // commented for deployment
+    //var user;
+    //user = await collection.findOne({username: usernameVar,password: passwordVar})
+
+    // changed for deployment
+    if(usernameVar == "admin" && passwordVar == "admin"){
+      //session = req.session;
+      req.session.username = usernameVar;
+      res.render('home', {title : "Home"});
+    }else{
+      alert('Invalid Username or Password. Please Login Again');
+      res.render('login');
+    }
   }else{
-      alert('Username and Password Fields cannot be empty');
+    alert('Username and Password Fields cannot be empty');
   }
 })
 
@@ -167,17 +175,21 @@ app.post('/register', async function(req,res){
   var usernameVar = req.body.username;
   var passwordVar = req.body.password;
   if(usernameVar && passwordVar){
-      var user;
-      user = await collection.findOne({username: usernameVar})
-      //console.log(user);  //debugging
-      if(!user){
-        collection.insertOne({username: usernameVar, password: passwordVar, wanttogo: []})
-        alert('Account Successfully Created');
-        res.redirect('/');
-      }else{
-        alert('Username already exists. Please choose another username');
-        res.render('registration');
-      }
+    // commented for deployment
+    /*
+    var user;
+    user = await collection.findOne({username: usernameVar})
+    //console.log(user);  //debugging
+    if(!user){
+      collection.insertOne({username: usernameVar, password: passwordVar, wanttogo: []})
+      alert('Account Successfully Created');
+      res.redirect('/');
+    }else{
+      alert('Username already exists. Please choose another username');
+      res.render('registration');
+    }*/
+    alert('Account Successfully Created');
+    res.redirect('/');
   }else{
       alert('Username and Password Fields cannot be empty');
   }
@@ -187,46 +199,48 @@ app.post('/register', async function(req,res){
 app.post('/annapurna', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("annapurna", req, res);
+  //else
+    //addToWantToGoList("annapurna", req, res);
   }
 )
 app.post('/inca', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("inca", req, res);
+  //else
+    //addToWantToGoList("inca", req, res);
   }
 )
 app.post('/paris', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("paris", req, res);
+  //else
+    //addToWantToGoList("paris", req, res);
   }
 )
 app.post('/rome', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("rome", req, res);
+  //else
+    //addToWantToGoList("rome", req, res);
   }
 )
 app.post('/bali', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("bali", req, res);
+  //else
+    //addToWantToGoList("bali", req, res);
   }
 )
 app.post('/santorini', async function(req,res){
   if(!req.session.username)
     res.redirect('/')
-  else
-    addToWantToGoList("santorini", req, res);
+  //else
+    //addToWantToGoList("santorini", req, res);
   }
 )
 
+// commented for deployment
+/*
 async function addToWantToGoList (location,req,res){ 
   var userDoc = await collection.findOne({username: req.session.username});
   var wanttogoList = userDoc.wanttogo;
@@ -248,6 +262,7 @@ async function addToWantToGoList (location,req,res){
     collection.updateOne({username: req.session.username}, {$set: {wanttogo: wanttogoList}});
   }   
 }
+*/
 
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
