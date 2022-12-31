@@ -5,6 +5,7 @@ var fs = require('fs');
 const { Session } = require('inspector'); // idk what this is for
 const session = require('express-session');
 const alert = require('alert');
+const PORT = process.env.PORT || 3030;
 //const popups = require('popups'); // not needed
 
 var MongoClient = require('mongodb').MongoClient;
@@ -248,4 +249,7 @@ async function addToWantToGoList (location,req,res){
   }   
 }
 
-app.listen(3000);
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
+//app.listen(3000);
